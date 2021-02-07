@@ -20,7 +20,7 @@ const StavkaFaktureItem = () => {
                     5
                 </span>
             </div>
-            <div className="w-4/12 h-10 flex flex-row items-center justify-between pr-2">
+            <div className="w-4/12 h-10 flex flex-row items-center justify-between pr-4">
                 <span className="font-medium px-1">
                     Rabat:
                 </span>
