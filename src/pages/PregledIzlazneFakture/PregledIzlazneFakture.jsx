@@ -1,4 +1,4 @@
-import FormContainer from "../components/FormContainer/FormContainer"
+import FormContainer from "../../components/FormContainer/FormContainer"
 
 const PregledIzlazneFakture = () => {
     return (

@@ -1,6 +1,6 @@
-import DodajStavkuItem from "../components/DodajStavkuItem/DodajStavkuItem"
-import FormContainer from "../components/FormContainer/FormContainer"
-import StavkaFaktureItem from "../components/StavkaFaktureItem/StavkaFaktureItem"
+import DodajStavkuItem from "../../components/DodajStavkuItem/DodajStavkuItem"
+import FormContainer from "../../components/FormContainer/FormContainer"
+import StavkaFaktureItem from "../../components/StavkaFaktureItem/StavkaFaktureItem"
 
 const UnosIzlazneFakture = () => {
     return (

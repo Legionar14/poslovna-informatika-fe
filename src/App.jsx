@@ -1,6 +1,6 @@
 import { Route, Switch, BrowserRouter as Router } from "react-router-dom";
-import PregledIzlazneFakture from "./PregledIzlazneFakture/PregledIzlazneFakture";
-import UnosIzlazneFakture from "./UnosIzlazneFakture/UnosIzlazneFakture"
+import PregledIzlazneFakture from './pages/PregledIzlazneFakture/PregledIzlazneFakture';
+import UnosIzlazneFakture from './pages/UnosIzlazneFakture/UnosIzlazneFakture'
 
 function App() {
   return (
