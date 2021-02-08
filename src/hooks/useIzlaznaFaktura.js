@@ -1,5 +1,5 @@
 import { LocalDate } from "@js-joda/core"
-import axios from "axios"
+import { axios } from "../axios"
 import { useCallback } from "react"
 import { useState } from "react"
 import { v4 as uuid } from "uuid"
@@ -17,8 +17,8 @@ const useIzlaznaFaktura = () => {
   }, [setFaktura])
 
   const postojecaFaktura = useCallback((id)=>{
-    axios.get("fakture").then(({data})=>{
-      
+    axios.get(`fakture/${id}`).then(({data})=>{
+      const { preduzece, stavke, }
     })
   }, [setFaktura])
 }
