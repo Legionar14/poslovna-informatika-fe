@@ -850,6 +850,9 @@ module.exports = {
     width: ['responsive'],
     wordBreak: ['responsive'],
     zIndex: ['responsive', 'focus-within', 'focus'],
+    extend: {
+      opacity: ['disabled']
+    }
   },
   plugins: [
     require('@tailwindcss/forms')

@@ -3,6 +3,8 @@ import KreiranjeCenovnika from "./pages/KreiranjeCenovnika/KreiranjeCenovnika";
 import PregledIzlazneFakture from './pages/PregledIzlazneFakture/PregledIzlazneFakture';
 import PrikazCenovnika from "./pages/PrikazCenovnika/PrikazCenovnika";
 import UnosIzlazneFakture from './pages/UnosIzlazneFakture/UnosIzlazneFakture'
+import { NotificationContainer } from 'react-notifications'
+import 'react-notifications/lib/notifications.css';
 
 function App() {
   return (
@@ -15,6 +17,7 @@ function App() {
           <Route path="/kreiranje-cenovnka" component={KreiranjeCenovnika} />
         </Switch>
       </Router>
+      <NotificationContainer/>
     </div>
   );
 }
