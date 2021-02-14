@@ -4,15 +4,16 @@ import { axios } from "../axios"
 import useCurrentUser from "./useCurrentUser"
 
 const usePreduzece = () => {
-  const { currentUser: { preduzeceId } } = useCurrentUser();
+  const { currentUser: { preduzeceId } } = useCurrentUser()
   const [preduzece, setPreduzece] = useState()
   const [stavkePreduzeca, setStavkePreduzeca] = useState()
+  const [grupeRobaIliUsluga, setGrupeRobaIliUsluga] = useState()
 
   useEffect(() => {
-    if (preduzeceId)
+    if (preduzeceId && !preduzece)
       axios.get(`/preduzeca/${preduzeceId}`)
         .then(({ data }) => setPreduzece(data)).catch(console.log)
-  }, [setPreduzece, preduzeceId])
+  }, [setPreduzece, preduzeceId, preduzece])
 
   useEffect(() => {
     if (preduzeceId)
@@ -20,7 +21,12 @@ const usePreduzece = () => {
         .then(({ data }) => setStavkePreduzeca(data)).catch(console.log)
   }, [setStavkePreduzeca, preduzeceId])
 
-  return { preduzece, stavkePreduzeca }
+  useEffect(() => {
+    if (preduzece)
+      setGrupeRobaIliUsluga(preduzece?.grupeRobaIliUsluga)
+  }, [preduzece, grupeRobaIliUsluga, setGrupeRobaIliUsluga])
+
+  return { preduzece, stavkePreduzeca, grupeRobaIliUsluga }
 }
 
 export default usePreduzece

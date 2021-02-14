@@ -1,28 +1,33 @@
-import { LocalDate } from "@js-joda/core"
 import { useCallback } from "react"
 import { useState } from "react"
 import { v4 as uuid } from "uuid"
 import { axios } from "../axios"
 
-const useIzlaznaFaktura = () => {
+const useIzlaznaFaktura = (preduzece, grupeRobaIliUsluga) => {
   const [faktura, setFaktura] = useState()
+  const [isNovaFaktura, setIsNovaFaktura] = useState()
+
   const novaFaktura = useCallback(()=>{
-    setFaktura({
-      id: uuid(),
-      datumFakture: LocalDate.now(),
-      datumValute: LocalDate.now(),
-      stavke: [],
-      fakturaGotova: false
-    })
-  }, [setFaktura])
+    if(preduzece) {
+      setFaktura({
+        id: uuid(),
+        stavke: [],
+        fakturaGotova: false,
+        preduzece
+      })
+      setIsNovaFaktura(true)
+    }
+  }, [setFaktura, setIsNovaFaktura, preduzece])
 
   const postojecaFaktura = useCallback((id)=>{
     axios.get(`fakture/${id}`).then(({data})=>{
       setFaktura(data)
+      setIsNovaFaktura(false)
     }).catch(console.log)
-  }, [setFaktura])
+  }, [setFaktura, setIsNovaFaktura])
 
   const dodajStavku = useCallback((stavka)=>{
+    console.log(stavka)
     const izmenjenaFaktura = {
       ...faktura,
       stavke: [...faktura.stavke, stavka]
@@ -41,27 +46,37 @@ const useIzlaznaFaktura = () => {
   }, [faktura, setFaktura])
 
   const setKupac = useCallback((kupac) => {
-    setFaktura({
-      ...faktura,
-      kupac
-    })
+    faktura.kupac = kupac
+    setFaktura(faktura)
   }, [faktura, setFaktura])
 
   const setDatumFakture = useCallback((datumFakture) => {
-    setFaktura({
-      ...faktura,
-      datumFakture
-    })
+    faktura.datumFakture = datumFakture
+    setFaktura(faktura)
   }, [faktura, setFaktura])
 
   const setDatumValute = useCallback((datumValute) => {
-    setFaktura({
-      ...faktura,
-      datumValute
-    })
+    faktura.datumValute = datumValute
+    setFaktura(faktura)
   }, [faktura, setFaktura])
 
-  return { faktura, novaFaktura, postojecaFaktura, dodajStavku, obrisiStavku, setKupac, setDatumFakture, setDatumValute }
+  const setGodinaFakture = useCallback((poslovnaGodina) => {
+    faktura.poslovnaGodina = poslovnaGodina
+    setFaktura(poslovnaGodina)
+  }, [faktura, setFaktura])
+
+  const saveFaktura = useCallback((onSuccess, onError)=>{
+    console.log(faktura)
+    axios.request({
+      method: isNovaFaktura ? "POST" : "PUT",
+      url: '/fakture',
+      data: faktura
+    })
+    .then(({data})=>onSuccess(data))
+    .catch(onError)
+  }, [isNovaFaktura, faktura])
+
+  return { faktura, novaFaktura, postojecaFaktura, dodajStavku, obrisiStavku, setKupac, setDatumFakture, setDatumValute, setGodinaFakture, saveFaktura }
 }
 
 export default useIzlaznaFaktura
