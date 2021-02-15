@@ -5,12 +5,16 @@ const StavkeFaktureTable = ({ stavke }) => {
 
 	const columns = useMemo(() => [
 		{
+			Header: "Redni br.",
+			accessor: "redniBroj"
+		},
+		{
 			Header: "Naziv robe/usluge",
-			accessor: "nazivRobe"
+			accessor: "robaIliUsluga.naziv"
 		},
 		{
 			Header: "Jedinica mere",
-			accessor: "jedinicaMere"
+			accessor: "robaIliUsluga.jedinicaMere.naziv"
 		},
 		{
 			Header: "Kolicina",
@@ -26,19 +30,19 @@ const StavkeFaktureTable = ({ stavke }) => {
 		},
 		{
 			Header: "Osnovica",
-			accessor: "osnovica"
+			accessor: "osnovicaZaPDV"
 		},
 		{
 			Header: "PDV %",
-			accessor: "pdvProcenat"
+			accessor: "pdvstopa"
 		},
 		{
 			Header: "PDV iznos",
-			accessor: "pdv"
+			accessor: "iznosPDV"
 		},
 		{
 			Header: "Ukupno",
-			accessor: "ukupno"
+			accessor: "ukupanIznos"
 		},
 	], [])
 

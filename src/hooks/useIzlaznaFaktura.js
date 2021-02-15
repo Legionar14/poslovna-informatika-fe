@@ -3,7 +3,7 @@ import { useState } from "react"
 import { v4 as uuid } from "uuid"
 import { axios } from "../axios"
 
-const useIzlaznaFaktura = (preduzece, grupeRobaIliUsluga) => {
+const useIzlaznaFaktura = (preduzece) => {
   const [faktura, setFaktura] = useState()
   const [isNovaFaktura, setIsNovaFaktura] = useState()
 
@@ -65,6 +65,11 @@ const useIzlaznaFaktura = (preduzece, grupeRobaIliUsluga) => {
     setFaktura(poslovnaGodina)
   }, [faktura, setFaktura])
 
+  const setFakturaGotova = useCallback((isGotova) => {
+    faktura.fakturaGotova = isGotova
+    setFaktura(faktura)
+  }, [faktura, setFaktura])
+
   const saveFaktura = useCallback((onSuccess, onError)=>{
     console.log(faktura)
     axios.request({
@@ -72,11 +77,11 @@ const useIzlaznaFaktura = (preduzece, grupeRobaIliUsluga) => {
       url: '/fakture',
       data: faktura
     })
-    .then(({data})=>onSuccess(data))
+    .then(({status, statusText ,data})=>status === 200 ? onSuccess(data) : onError(`${status}: ${statusText}`))
     .catch(onError)
   }, [isNovaFaktura, faktura])
 
-  return { faktura, novaFaktura, postojecaFaktura, dodajStavku, obrisiStavku, setKupac, setDatumFakture, setDatumValute, setGodinaFakture, saveFaktura }
+  return { faktura, isNovaFaktura, novaFaktura, postojecaFaktura, dodajStavku, obrisiStavku, setKupac, setDatumFakture, setDatumValute, setGodinaFakture, saveFaktura, setFakturaGotova }
 }
 
 export default useIzlaznaFaktura

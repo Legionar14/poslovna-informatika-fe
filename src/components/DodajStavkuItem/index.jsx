@@ -72,7 +72,7 @@ const DodajStavkuItem = ({ dodajStavku, stavkePreduzeca, cenovnik }) => {
             ))
           }
         </select>
-        <button disabled={!formValid} onClick={dodajBtnClick} className="h-10 px-4 ml-1 align-self-end bg-green-500 disabled:opacity-50 rounded justify-self-end font-medium">
+        <button disabled={!formValid} onClick={dodajBtnClick} className="h-10 px-4 ml-1 align-self-end bg-green-500 disabled:opacity-50 rounded justify-self-end font-medium text-white">
           Dodaj
         </button>
       </div>
