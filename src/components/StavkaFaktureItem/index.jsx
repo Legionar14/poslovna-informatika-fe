@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { DateTimeFormatter, LocalDate } from "@js-joda/core"
 import { useMemo } from "react"
 
-const StavkaFaktureItem = ({ stavka, obrisiStavku }) => {
+const StavkaFaktureItem = ({ stavka, obrisiStavku, datumFakture }) => {
 
   const procenatRabata = useMemo(() => {
     const { kolicina, jedinicnaCena, rabat } = stavka
@@ -17,11 +17,19 @@ const StavkaFaktureItem = ({ stavka, obrisiStavku }) => {
   const dateTimeFormatter = useMemo(() => DateTimeFormatter.ofPattern("dd-MM-yyyy"), [])
 
   const procenatPdv = useMemo(() => stavka?.robaIliUsluga.grupaRobeIliUsluge.pdvKategorija.stopePDV
+    .filter(stopa => {
+      const datumVazenjaStope = LocalDate.from(dateTimeFormatter.parse(stopa.datumVazenja))
+      const datumFaktureParsed = datumFakture ? LocalDate.from(dateTimeFormatter.parse(datumFakture)) : null
+      return datumFaktureParsed && (datumVazenjaStope.isBefore(datumFaktureParsed) || datumVazenjaStope.isEqual(datumFaktureParsed))
+    })
     .reduce((trenutnaNajvecaStopa, stopa) => {
-      const trenutnaNajvecaStopaVaziOd = LocalDate.from(dateTimeFormatter.parse(trenutnaNajvecaStopa.datumVazenja))
-      const stopaVaziOd = LocalDate.from(dateTimeFormatter.parse(stopa.datumVazenja))
-      return trenutnaNajvecaStopaVaziOd.isBefore(stopaVaziOd) ? stopa : trenutnaNajvecaStopa
-    })?.procenat || 0, [stavka, dateTimeFormatter])
+      if (trenutnaNajvecaStopa) {
+        const trenutnaNajvecaStopaVaziOd = LocalDate.from(dateTimeFormatter.parse(trenutnaNajvecaStopa.datumVazenja))
+        const stopaVaziOd = LocalDate.from(dateTimeFormatter.parse(stopa.datumVazenja))
+        return trenutnaNajvecaStopaVaziOd.isBefore(stopaVaziOd) ? stopa : trenutnaNajvecaStopa
+      }
+      else return stopa
+    }, null)?.procenat || 0, [stavka, dateTimeFormatter, datumFakture])
 
   const ukupnoPdv = useMemo(() => ukupnaCena * (procenatPdv / 100), [ukupnaCena, procenatPdv])
 

@@ -2,7 +2,7 @@ import FormContainer from "../../components/FormContainer";
 import usePreduzece from "../../hooks/usePreduzece";
 import useCenovnik from "../../hooks/useCenovnik";
 import useIzlaznaFaktura from "../../hooks/useIzlaznaFaktura";
-import { useParams } from "react-router-dom";
+import { useHistory, useParams } from "react-router-dom";
 import { useMemo, useState } from "react";
 import Joi from "joi";
 import { joiResolver } from '@hookform/resolvers/joi'
@@ -15,11 +15,13 @@ import { NotificationManager } from "react-notifications";
 
 const UnosIzlazneFakture = () => {
   const { id } = useParams()
+  const history = useHistory()
   const { preduzece, stavkePreduzeca, grupeRobaIliUsluga } = usePreduzece()
   const [datumFakture, setLocalDatumFakture] = useState()
   const { cenovnik } = useCenovnik(preduzece?.id, datumFakture)
   const {
     faktura,
+    isNovaFaktura,
     novaFaktura,
     postojecaFaktura,
     dodajStavku,
@@ -51,14 +53,19 @@ const UnosIzlazneFakture = () => {
     setKupac(preduzece?.poslovniPartneri?.find(pp => pp.id === kupac))
     setDatumFakture(LocalDate.from(nativeJs(datumFakture)).format(dtf))
     setDatumValute(LocalDate.from(nativeJs(datumValute)).format(dtf))
-    saveFaktura((novaFaktura) => {
-      NotificationManager.success(`Faktura sa brojem ${novaFaktura.brojFakture} uspesno dodata`)
-      console.debug(novaFaktura)
-    }, (err) => {
-      NotificationManager.error('Greska, faktura nije dodata')
-      console.log(err)
-    })
-  }, [saveFaktura, setGodinaFakture, setDatumValute, setDatumFakture, setKupac, preduzece])
+    if (faktura.stavke.length) {
+      saveFaktura((novaFaktura) => {
+        NotificationManager.success(`Faktura sa brojem ${novaFaktura.brojFakture} uspesno dodata`)
+        console.debug(novaFaktura)
+        history.push(`/pregled-izlazne-fakture/${novaFaktura.id}`)
+      }, (err) => {
+        NotificationManager.error('Greska, faktura nije dodata')
+        console.log(err)
+      })
+    }
+    else NotificationManager.warning("Nije moguce dodati fakturu bez stavki")
+
+  }, [faktura, saveFaktura, setGodinaFakture, setDatumValute, setDatumFakture, setKupac, preduzece, history])
 
   useEffect(() => {
     if (!faktura) {
@@ -67,13 +74,21 @@ const UnosIzlazneFakture = () => {
     }
   }, [id, faktura, postojecaFaktura, novaFaktura])
 
+  useEffect(() => faktura && !isNovaFaktura && setLocalDatumFakture(faktura.datumFakture)
+    , [faktura, isNovaFaktura, setLocalDatumFakture])
+
   const onDatumFaktureChange = useCallback((e) => {
     if (e.target.value) {
-      console.log("changed")
       const date = LocalDate.from(DateTimeFormatter.ofPattern("yyyy-MM-dd").parse(e.target.value)).format(DateTimeFormatter.ofPattern("dd-MM-yyyy"))
       setLocalDatumFakture(date)
     }
   }, [setLocalDatumFakture])
+
+  const serverDateToComponentDateConverter = useCallback((date) => {
+    const serverDateFormat = DateTimeFormatter.ofPattern("dd-MM-yyyy")
+    const componentDateFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd")
+    return LocalDate.from(serverDateFormat.parse(date)).format(componentDateFormat)
+  }, [])
 
   return (
     <FormContainer formName="Unos izlazne fakture">
@@ -109,7 +124,7 @@ const UnosIzlazneFakture = () => {
                     <span className="font-medium">
                       Kupac
                     </span>
-                    <select name="kupac" defaultValue="" ref={register} className="shadow-sm w-full h-10 px-2 rounded">
+                    <select name="kupac" defaultValue={faktura?.kupac?.id || ""} ref={register} className="shadow-sm w-full h-10 px-2 rounded">
                       <option value="" disabled hidden>Izaberite kupca</option>
                       {
                         preduzece?.poslovniPartneri.map(pp => (
@@ -120,11 +135,11 @@ const UnosIzlazneFakture = () => {
                   </div>
                   <div className="my-2">
                     <span className="font-medium">Datum fakture</span>
-                    <input type="date" className="shadow-sm w-full h-10 px-2 rounded" name="datumFakture" onChange={onDatumFaktureChange} ref={register} />
+                    <input type="date" defaultValue={faktura?.datumFakture ? serverDateToComponentDateConverter(faktura?.datumFakture) : ''} className="shadow-sm w-full h-10 px-2 rounded" name="datumFakture" onChange={onDatumFaktureChange} ref={register} />
                   </div>
                   <div className="my-2">
                     <span className="font-medium">Datum valute</span>
-                    <input type="date" className="shadow-sm w-full h-10 px-2 rounded" name="datumValute" ref={register} />
+                    <input type="date" defaultValue={faktura?.datumValute ? serverDateToComponentDateConverter(faktura?.datumValute) : ''} className="shadow-sm w-full h-10 px-2 rounded" name="datumValute" ref={register} />
                   </div>
                   <div className="my-2">
                     <span className="font-medium">Stavke</span>
@@ -132,7 +147,7 @@ const UnosIzlazneFakture = () => {
                       <DodajStavkuItem dodajStavku={dodajStavku} stavkePreduzeca={stavkePreduzeca} cenovnik={cenovnik} />
                       {
                         faktura.stavke?.map(st => (
-                          <StavkaFaktureItem key={st.id} stavka={st} obrisiStavku={obrisiStavku(st.id)} />
+                          <StavkaFaktureItem key={st.id} stavka={st} obrisiStavku={obrisiStavku(st.id)} datumFakture={datumFakture} />
                         ))
                       }
                     </div>
