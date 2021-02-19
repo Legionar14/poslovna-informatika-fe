@@ -27,7 +27,7 @@ const PrikazCenovnika = () => {
 	return (
 		<div className="flex justify-center flex-col p-5">
       <div className="flex justify-center flex-row">
-					<h1 className="text-2xl my-4">Prikaz cenovnika</h1>
+					<h1 className="text-2xl my-4">Cenovnici</h1>
 				</div>
       <table class="table-fixed mt-3">
         <thead class="bg-gray-50">

@@ -33,7 +33,7 @@ const KreiranjeCenovnika = () => {
 	}, [setRobaIliUsluga])
 
 	return (
-		<div className="container mx-auto flex justify-center p-5">
+		<div className="container mx-auto flex justify-center mt-4 p-5">
 			<form className="w-6/12 rounded overflow-hidden shadow-lg flex justify-center flex-col p-5">
 				<div className="flex justify-center flex-row mb-4">
 					<h1 className="text-2xl">Kreiranje cenovnika</h1>
