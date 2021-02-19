@@ -3,7 +3,7 @@ import { axios } from "../../axios";
 import StavkaCenovnika from "../../components/StavkaCenovnika/StavkaCenovnika";
 
 const PrikazCenovnika = () => {
-  
+
   const [cenovnici, setCenovnike] = useState([]);
   const [showModal, setShowModal] = useState(false);
   const [procenat, setProcenat] = useState(0);
@@ -24,23 +24,25 @@ const PrikazCenovnika = () => {
     });
   }
 
-	return (
-		<div className="flex justify-center flex-col p-5">
+  return (
+    <div className="flex justify-center flex-col p-5">
       <div className="flex justify-center flex-row">
-					<h1 className="text-2xl my-4">Cenovnici</h1>
-				</div>
-      <table class="table-fixed mt-3">
-        <thead class="bg-gray-50">
+        <h1 className="text-2xl my-4">Cenovnici</h1>
+      </div>
+      <div className="flex justify-center">
+      <table class="table-fixed mt-3 w-8/12">
+        <thead class="bg-gray-800">
           <tr>
-            <th scope="col" class="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">Vazi od</th>
-            <th scope="col" class="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">Stavke cenovnika</th>
-            <th scope="col" class="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">Kopiraj cenovnik</th>
+            <th scope="col" class="px-6 py-3 text-center text-xs font-medium text-white uppercase tracking-wider">Vazi od</th>
+            <th scope="col" class="px-6 py-3 text-center text-xs font-medium text-white uppercase tracking-wider">Stavke cenovnika</th>
+            <th scope="col" class="px-6 py-3 text-center text-xs font-medium text-white uppercase tracking-wider">Kopiraj cenovnik</th>
           </tr>
         </thead>
-        <tbody class="bg-white divide-y divide-gray-200">
-          {cenovnici.map(x => <tr><td class="px-6 text-center py-4 whitespace-nowrap">{`${x.vaziOd[2]}/${x.vaziOd[1]}/${x.vaziOd[0]}`}</td><td class="px-6 text-center py-4 whitespace-nowrap">{x.stavkeCenovnika.map(x => <StavkaCenovnika stavkaCenovnika={x} />)}</td><td class="px-6 text-center py-4 whitespace-nowrap"><button class="text-indigo-600 hover:text-indigo-900" onClick={() => {setCenovnikZaKopiranje(x);setShowModal(true)}}>Kopiraj cenovnik</button></td></tr>)}
+        <tbody class="bg-gray-100 divide-y divide-gray-800">
+          {cenovnici.map(x => <tr><td class="px-6 text-center py-4 whitespace-nowrap">{`${x.vaziOd[2]}/${x.vaziOd[1]}/${x.vaziOd[0]}`}</td><td class="px-6 text-center py-4 whitespace-nowrap">{x.stavkeCenovnika.map(x => <StavkaCenovnika stavkaCenovnika={x} />)}</td><td class="px-6 text-center py-4 whitespace-nowrap"><button class="text-white bg-gray-800 hover:bg-gray-700 mx-2 py-1 px-2 font-medium text-white rounded-md h-10" onClick={() => { setCenovnikZaKopiranje(x); setShowModal(true) }}>Kopiraj cenovnik</button></td></tr>)}
         </tbody>
       </table>
+      </div>
 
       {showModal ? (
         <div>
@@ -63,29 +65,29 @@ const PrikazCenovnika = () => {
                   </button>
                 </div>
                 <div className="relative p-6 flex-auto">
-									<form className="container mx-auto flex justify-center p-5">
+                  <form className="container mx-auto flex justify-center p-5">
                     <select onChange={(e) => setIsMinus(e.target.value)}>
                       <option value="true">Uvecaj</option>
                       <option value="false">Umanji</option>
                     </select>
-										<input type="number" min="0" className="shadow-sm w-6/12 h-10 px-2 mx-2 rounded" name="cena" placeholder="Procenat" onChange={(e) => setProcenat(e.target.value)} />
-										<button
-                    className="text-red-500 background-transparent font-bold uppercase px-6 py-2 text-sm outline-none focus:outline-none mr-1 mb-1"
-                    type="button"
-                    style={{ transition: "all .15s ease" }}
-                    onClick={() => setShowModal(false)}
-                  >
-                    Close
+                    <input type="number" min="0" className="shadow-sm w-6/12 h-10 px-2 mx-2 rounded" name="cena" placeholder="Procenat" onChange={(e) => setProcenat(e.target.value)} />
+                    <button
+                      className="text-red-500 background-transparent font-bold uppercase px-6 py-2 text-sm outline-none focus:outline-none mr-1 mb-1"
+                      type="button"
+                      style={{ transition: "all .15s ease" }}
+                      onClick={() => setShowModal(false)}
+                    >
+                      Close
                   </button>
-                  <button
-                    className="bg-green-500 mx-2 py-1 px-2 font-medium text-white rounded-md h-10"
-                    type="submit"
-                    style={{ transition: "all .15s ease" }}
-                    onClick={(e) => kopirajCenovnik(e)}
-                  >
-                    Kopiraj
+                    <button
+                      className="bg-green-500 font-bold text-white uppercase px-6 py-2 text-sm outline-none focus:outline-none mr-1 mb-1 rounded"
+                      type="submit"
+                      style={{ transition: "all .15s ease" }}
+                      onClick={(e) => kopirajCenovnik(e)}
+                    >
+                      Kopiraj
                   </button>
-									</form>
+                  </form>
                 </div>
               </div>
             </div>
@@ -94,8 +96,8 @@ const PrikazCenovnika = () => {
         </div>
       ) : null}
 
-		</div>
-	);
+    </div>
+  );
 }
 
 export default PrikazCenovnika;

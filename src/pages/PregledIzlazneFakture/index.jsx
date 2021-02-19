@@ -8,15 +8,13 @@ import StavkeFaktureTable from "../../components/StavkeFaktureTable"
 import useIzlaznaFaktura from "../../hooks/useIzlaznaFaktura"
 
 const PregledIzlazneFakture = () => {
-	const { id } = useParams()
-	const history = useHistory()
-	const { faktura, postojecaFaktura, setFakturaGotova, saveFaktura } = useIzlaznaFaktura()
-
-	console.debug(faktura)
+	const { id } = useParams();
+	const history = useHistory();
+	const { faktura, postojecaFaktura, setFakturaGotova, saveFaktura } = useIzlaznaFaktura();
 
 	useEffect(() => {
-		if (!faktura && id) postojecaFaktura(id)
-	}, [id, faktura, postojecaFaktura])
+		if (!faktura && id) postojecaFaktura(id);
+	}, [id, faktura, postojecaFaktura]);
 
 	const ukupanRabat = useMemo(() => faktura ? faktura.stavke.map(st => st.rabat).reduce((r1, r2) => r1 + r2) : 0, [faktura])
 
