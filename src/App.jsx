@@ -15,7 +15,6 @@ function App() {
         <Navbar />
         <Switch>
           <Route path="/unos-izlazne-fakture" component={UnosIzlazneFakture} />
-          <Route path="/pregled-izlazne-fakture" component={PregledIzlazneFakture} />
           <Route path="/kif" component={KnjigaIzlaznihFaktura} />
           <Route path="/cenovnici" component={PrikazCenovnika} />
           <Route path="/kreiranje-cenovnka" component={KreiranjeCenovnika} />

@@ -13,14 +13,6 @@ const KnjigaIzlaznihFaktura = () => {
     });
   },[setFakture])
 
-  function getPDFFakture(link) {
-    axios.get(link).then((response) => {
-      pdfFile += btoa(unescape(encodeURIComponent(response.data)));
-      setPdfFile(pdfFile);
-      console.log(pdfFile)
-    });
-  }
-
   function viewFaktura(id) {
     window.location.replace('http://localhost:3000/pregled-izlazne-fakture/' + id);
   }
@@ -35,7 +27,7 @@ const KnjigaIzlaznihFaktura = () => {
         <td className="text-center" onClick={() => viewFaktura(rowData.id)}>{rowData.ukupnaOsnovica}</td>
         <td className="text-center" onClick={() => viewFaktura(rowData.id)}>{rowData.ukupanPDV}</td>
         <td className="text-center" onClick={() => viewFaktura(rowData.id)}>{rowData.ukupanIznos}</td>
-        <td className="text-center"><button className="text-white bg-gray-800 hover:bg-gray-700 mx-2 my-2 py-1 px-2 font-medium text-white rounded-md h-10" onClick={() => getPDFFakture(`/fakture/${rowData.id}/pdf`)}>PDF fakture</button></td>
+        <td className="text-center"><a href={`http://localhost:8080/api/fakture/${rowData.id}/pdf`} target="_blank">PDF Fakture</a></td>
       </tr>
     );
   };
