@@ -7,6 +7,8 @@ import PregledIzlazneFakture from './pages/PregledIzlazneFakture';
 import UnosIzlazneFakture from './pages/UnosIzlazneFakture';
 import { NotificationContainer } from 'react-notifications'
 import 'react-notifications/lib/notifications.css';
+import JediniceMere from './pages/JediniceMere/JediniceMere';
+import RobaIliUsluga from './pages/RobaIliUsluga/RobaIliUsluga';
 
 function App() {
   return (
@@ -21,6 +23,8 @@ function App() {
           <Route path="/pregled-izlazne-fakture/:id" component={PregledIzlazneFakture} />
           <Route path="/unos-izlazne-fakture" component={UnosIzlazneFakture} />
           <Route path="/izmena-izlazne-fakture/:id" component={UnosIzlazneFakture} />
+          <Route path="/jedinice-mere" component={JediniceMere} />
+          <Route path="/roba-ili-usluga" component={RobaIliUsluga} />
         </Switch>
       </Router>
       <NotificationContainer/>

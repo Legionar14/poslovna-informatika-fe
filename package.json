@@ -25,6 +25,7 @@
     "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.1",
     "react-table": "^7.6.3",
+    "react-to-pdf": "0.0.13",
     "uuid": "^8.3.2",
     "web-vitals": "^0.2.4"
   },
