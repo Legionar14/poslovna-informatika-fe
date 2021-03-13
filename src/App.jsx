@@ -9,6 +9,8 @@ import { NotificationContainer } from 'react-notifications'
 import 'react-notifications/lib/notifications.css';
 import JediniceMere from './pages/JediniceMere/JediniceMere';
 import RobaIliUsluga from './pages/RobaIliUsluga/RobaIliUsluga';
+import UnosPdvKategorije from "./pages/UnosPdvKategorije";
+import UnosPdvStope from "./pages/UnosPdvStope";
 
 function App() {
   return (
@@ -25,6 +27,8 @@ function App() {
           <Route path="/izmena-izlazne-fakture/:id" component={UnosIzlazneFakture} />
           <Route path="/jedinice-mere" component={JediniceMere} />
           <Route path="/roba-ili-usluga" component={RobaIliUsluga} />
+          <Route path="/unos-pdv-kategorije" component={UnosPdvKategorije} />
+          <Route path="/unos-pdv-stope" component={UnosPdvStope} />
         </Switch>
       </Router>
       <NotificationContainer/>

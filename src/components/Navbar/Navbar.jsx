@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { useState } from "react/cjs/react.development";
 import Options from '../../assets/more-options.svg';
 
@@ -49,6 +50,8 @@ const Navbar = () => {
                 <a href="/jedinice-mere" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">Jedinice mere</a>
                 <a href="/roba-ili-usluga" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">Roba ili usluga</a>
                 <a href="/grupa-robe-ili-usluge" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">Grupa robe ili usluge</a>
+                <Link to="/unos-pdv-kategorije" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">Unos pdv kategorije</Link>
+                <Link to="/unos-pdv-stope" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">Unos pdv stope</Link>
               </div>
             </div>
           </div>
