@@ -52,6 +52,7 @@ const Navbar = () => {
                 <a href="/grupa-robe-ili-usluge" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">Grupa robe ili usluge</a>
                 <Link to="/unos-pdv-kategorije" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">Unos pdv kategorije</Link>
                 <Link to="/unos-pdv-stope" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">Unos pdv stope</Link>
+                <Link to="/unos-preduzeca" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">Unos preduzeca</Link>
               </div>
             </div>
           </div>

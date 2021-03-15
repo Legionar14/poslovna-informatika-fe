@@ -11,6 +11,7 @@ import JediniceMere from './pages/JediniceMere/JediniceMere';
 import RobaIliUsluga from './pages/RobaIliUsluga/RobaIliUsluga';
 import UnosPdvKategorije from "./pages/UnosPdvKategorije";
 import UnosPdvStope from "./pages/UnosPdvStope";
+import UnosPreduzeca from "./pages/UnosPreduzeca";
 
 function App() {
   return (
@@ -29,6 +30,7 @@ function App() {
           <Route path="/roba-ili-usluga" component={RobaIliUsluga} />
           <Route path="/unos-pdv-kategorije" component={UnosPdvKategorije} />
           <Route path="/unos-pdv-stope" component={UnosPdvStope} />
+          <Route path="/unos-preduzeca" component={UnosPreduzeca} />
         </Switch>
       </Router>
       <NotificationContainer/>
