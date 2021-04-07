@@ -33,7 +33,6 @@ const Navbar = () => {
             <div className="hidden sm:block sm:ml-6">
               <div className="flex space-x-4">
                 <a href="/cenovnici" className="text-white hover:bg-gray-700 px-3 py-2 rounded-md text-sm font-medium">Cenovnici</a>
-                <a href="/pregled-izlazne-fakture" className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Pregled izlazne fakture</a>
                 <a href="/kif" className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">KIF</a>
                 <a href="/unos-izlazne-fakture" className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Unos fakture</a>
                 <a href="/kreiranje-cenovnka" className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Kreiranje cenovnika</a>
@@ -49,7 +48,6 @@ const Navbar = () => {
               <div className={`${showUserMenu ? "" : "hidden"} origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5`} role="menu" aria-orientation="vertical" aria-labelledby="user-menu">
                 <a href="/jedinice-mere" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">Jedinice mere</a>
                 <a href="/roba-ili-usluga" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">Roba ili usluga</a>
-                <a href="/grupa-robe-ili-usluge" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">Grupa robe ili usluge</a>
                 <Link to="/unos-pdv-kategorije" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">Unos pdv kategorije</Link>
                 <Link to="/unos-pdv-stope" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">Unos pdv stope</Link>
                 <Link to="/unos-preduzeca" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">Unos preduzeca</Link>
